@@ -22,13 +22,13 @@ export const getContacts = async ({
     ...paginationData,
   };
 };
-
+export const getContact = (filter) => ContactCollection.findOne(filter);
 export const getContactById = (id) => ContactCollection.findById(id);
 
 export const addContact = (payload) => ContactCollection.create(payload);
 
-export const updateContact = async (_id, payload) => {
-  const result = await ContactCollection.findOneAndUpdate({ _id }, payload, {
+export const updateContact = async (filter, payload) => {
+  const result = await ContactCollection.findOneAndUpdate(filter, payload, {
     new: true,
   });
   return result;
