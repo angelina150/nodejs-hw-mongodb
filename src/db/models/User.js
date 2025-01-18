@@ -20,6 +20,11 @@ const usersSchema = new Schema(
       minlength: 6,
       required: true,
     },
+    verify: {
+      type: Boolean,
+      default: false,
+      required: true,
+    },
   },
   { timestamps: true, versionKey: false },
 );
