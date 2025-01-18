@@ -5,7 +5,6 @@ import { SessionsCollection } from '../db/models/Session.js';
 import { randomBytes } from 'crypto';
 import {
   accessTokenLifetime,
-  emailRegexp,
   refreshTokenLifetime,
 } from '../constants/users.js';
 import jwt from 'jsonwebtoken';
