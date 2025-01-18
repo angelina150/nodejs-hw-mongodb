@@ -13,11 +13,3 @@ export const parsePaginationParams = ({ page, perPage }) => {
     perPage: parsedPerPage,
   };
 };
-export const parsePaginationParams2 = ({ page, perPage }) => {
-  const parsedPage = parseNumber(page, 1);
-  const parsedPerPage = parseNumber(perPage, 10);
-  return {
-    page: parsedPage,
-    perPage: parsedPerPage,
-  };
-};
