@@ -14,6 +14,7 @@ import { SMTP, TEMPLATES_DIR } from '../constants/index.js';
 import handlebars from 'handlebars';
 import path from 'node:path';
 import fs from 'node:fs/promises';
+import { getUserNameFromGoogle, validateCode } from '../utils/googleOAuth2.js';
 
 const createSessionData = () => ({
   accessToken: randomBytes(30).toString('base64'),
@@ -168,6 +169,27 @@ export const refreshTokenUser = async (payload) => {
     ...sessionData,
   });
 };
+
+export const loginOrRegisterWithGoogle = async (code) => {
+  const loginTicket = await validateCode(code);
+  const payload = loginTicket.getPayload();
+  let user = await UsersCollection.findOne({ email: payload.email });
+  if (!user) {
+    const username = getUserNameFromGoogle(payload);
+    const password = await bcrypt.hash(randomBytes(30).toString('base64'), 10);
+    user = await UsersCollection.create({
+      email: payload.email,
+      name: username,
+      password,
+    });
+  }
+  const sessionData = createSessionData();
+  return SessionsCollection.create({
+    userId: user._id,
+    ...sessionData,
+  });
+};
+
 export const logout = async (sessionId) => {
   await SessionsCollection.deleteOne({ _id: sessionId });
 };
