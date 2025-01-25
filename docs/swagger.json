@@ -78,19 +78,6 @@
               ],
               "example": "asc"
             }
-          },
-          {
-            "in": "query",
-            "name": "contactType",
-            "schema": {
-              "type": "string",
-              "enum": [
-                "work",
-                "home",
-                "personal"
-              ],
-              "example": "work"
-            }
           }
         ],
         "responses": {
@@ -186,18 +173,12 @@
               "schema": {
                 "type": "object",
                 "required": [
-                  "_id",
                   "name",
                   "phoneNumber",
                   "isFavourite",
                   "contactType"
                 ],
                 "properties": {
-                  "_id": {
-                    "description": "Contact's id",
-                    "type": "string",
-                    "example": "65e4decdd286b30065d54af9"
-                  },
                   "name": {
                     "description": "Contact's name",
                     "type": "string",
@@ -348,7 +329,7 @@
           {
             "in": "path",
             "name": "id",
-            "required": true,
+            "required": false,
             "schema": {
               "type": "string",
               "example": "65ca67e7ae7f10c88b598384"
@@ -474,14 +455,14 @@
           }
         ],
         "responses": {
-          "200": {
+          "204": {
             "description": " The contact was successfully deleted."
           },
           "401": {
-            "description": "Access token expired"
+            "$ref": "#/components/responses/401"
           },
           "404": {
-            "description": "Contact not found"
+            "$ref": "#/components/responses/404"
           }
         }
       }
