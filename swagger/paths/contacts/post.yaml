@@ -11,16 +11,11 @@ requestBody:
       schema:
         type: object
         required:
-          - _id
           - name
           - phoneNumber
           - isFavourite
           - contactType
         properties:
-          _id:
-            description: "Contact's id"
-            type: string
-            example: 65e4decdd286b30065d54af9
           name:
             description: "Contact's name"
             type: string
